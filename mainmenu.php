@@ -48,7 +48,7 @@ float:left;
 <?php         
 // this page consists of main menu which is included in every other page;            
 echo "<br><br>";
-$con=mysqli_connect("localhost","root","root","IIITDM");
+$con=mysqli_connect("localhost","root","root","iiitdm");
 // Check connection
 if (mysqli_connect_errno())
   {

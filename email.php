@@ -7,7 +7,7 @@ if(isset($_POST['excel']))
    session_start();
    $course_id=$_SESSION['course_id'];
    $sql="select * from course_student where course_id='$course_id' order by rollno";
-   $con=mysqli_connect("localhost","root","root","IIITDM");
+   $con=mysqli_connect("localhost","root","root","iiitdm");
    $result = mysqli_query($con,$sql);
 
    
