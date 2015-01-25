@@ -26,25 +26,29 @@ echo "<h4><center>Courses Offered:</center></h4>";
 $sql="select * from jan_may_2014_slots where FACULTY='$faculty_id'";
 $result = mysqli_query($con,$sql);
 
+echo "<form action='cutoff.php' method='post' >";
 echo "<table align='center'>
 <tr>
-<th>COURSE ID</th>
+
+<th SELECT></th>
 <th>NAME</th>
-<th>ENTER/EDIT MARKS DISTRIBUTION</th>
+<th>COURSE ID</th>
+
 </tr>";
 
 while($row = mysqli_fetch_array($result))
+  // each iteration of while loop corresponds to each record
   {
-  echo "<form action='cutoff.php' method='post' >";
+
   echo "<tr>";
+  echo "<td><input type = \"radio\" name = \"course_sub\" value = \"" . $row['ID'] ."\"></td>";
   echo "<td>" . $row['ID'] . "</td>";
   echo "<td>" . $row['NAME'] . "</td>";
-  ?>
-  <td><input type="hidden" value="<?php echo $row['ID'];?>" name="course" /><input name="course_sub" type="submit" value="Select"></td>
-  <?php
-  echo "</tr></form>";
+  echo "</tr>";
   }
-echo "</table><br><br>";
+echo "</table>";
+echo "</br><center><input type = \"submit\" value = \"Submit\" <\center>";
+echo "</form><br><br>";
 
 }
 

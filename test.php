@@ -22,7 +22,7 @@ text-align:center;
 <br><br><br><br>
 
 <h2><center>Faculty Login </center></h2> 
-<form name='login' action='test.php' method='post'>
+<form name='login' action="<?php echo $_SERVER['PHP_SELF'];?>" method='post'>
    <table align = "center">
             <tr>
                 <td> Faculty ID </td>
@@ -65,7 +65,7 @@ $count=mysqli_num_rows($result);
 
 if($count==1)
 {
-header("location:welcome.php");
+header("Location: http://localhost/Grading/welcome.php");
 }
 else
 {

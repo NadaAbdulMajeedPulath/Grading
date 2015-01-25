@@ -39,7 +39,7 @@ else
 //In this page the faculty enters max marks for each attribute and selects submit.
 session_start();
 // store session data
-$_SESSION['course_id']=$_POST['course'];
+$_SESSION['course_id']=$_POST['course_sub'];
 $course_id=$_SESSION['course_id']; 
 }
   
