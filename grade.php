@@ -17,9 +17,6 @@
 </style>
 </head>
 
-
-
-
 <body>
 
 <?php

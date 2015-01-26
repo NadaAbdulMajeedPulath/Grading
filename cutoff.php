@@ -7,8 +7,9 @@ include 'mainmenu.php';
 
 
 if(isset($_POST['submit']))//As the faculty clicks on submit the given input gets stored in the database.
- {
+{
  $temp=0;
+ $total = 0;
  session_start();
  $course_id=$_SESSION['course_id']; 
   foreach($_POST as $key => $value)
@@ -19,8 +20,9 @@ if(isset($_POST['submit']))//As the faculty clicks on submit the given input get
 	  if($key!="submit")
 	  {
 	  $field=substr($key, 0, 3);
-	  if($value>=0)
+	  if($value>=0){
 	  mysqli_query($con,"update cutoff set $field='$value' where course_id='$course_id'  ");
+	}
 	  else
 	  $temp=1;
 	  //mysqli_query($con,"update course_student set q1='17' ");
@@ -46,9 +48,12 @@ $course_id=$_SESSION['course_id'];
 $sql="select * from cutoff where course_id='$course_id'";
 
 $result = mysqli_query($con,$sql);
+$count=mysqli_num_rows($result);
+
+if ($count == 1) {
 echo "<br><br><b><center>COURSE ID  = $course_id </center></b><br><br> ";
 
-echo "<font color='blue'><b><center>NOTE : Please enter max marks for each column.</center></b></font><br><br>";
+echo "<font color='blue'><b><center>NOTE : Enter max marks for each column.</center></b></font><br><br>";
 
 echo "<form action='cutoff.php' method='post' ><table align='center'>
 <tr>
@@ -69,10 +74,17 @@ $row = mysqli_fetch_array($result);
   echo "</tr>";
 echo "</table><br><br >";
 
+echo "<center><input name =\"submit\" type=\"submit\" value=\"Submit\"></form></center>";
+
+}
+
+else{
+	echo "</br></br><center><b>SQL table not present</b><center>";
+}
+
 ?>
 
 
-<center><input name ='submit' type="submit" value="Submit"></form></center>
 
 </body>
 </html>

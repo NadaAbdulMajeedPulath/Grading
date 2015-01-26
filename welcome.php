@@ -41,13 +41,13 @@ while($row = mysqli_fetch_array($result))
   {
 
   echo "<tr>";
-  echo "<td><input type = \"radio\" name = \"course_sub\" value = \"" . $row['ID'] ."\"></td>";
+  echo "<td><input type = \"radio\" name = \"course_sub\" value = \"" . $row['ID'] ."\" ></td>";
   echo "<td>" . $row['ID'] . "</td>";
   echo "<td>" . $row['NAME'] . "</td>";
   echo "</tr>";
   }
 echo "</table>";
-echo "</br><center><input type = \"submit\" value = \"Submit\" <\center>";
+echo "</br><center><input type = \"submit\" name = \"course_submit\" value = \"Submit\" <\center>";
 echo "</form><br><br>";
 
 }

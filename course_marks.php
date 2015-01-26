@@ -13,38 +13,37 @@ if(isset($_POST['submit']))
  $course_id=$_SESSION['course_id'];
  
   $x=1;
-      foreach($_POST as $key => $value)
+  $student_marks = array(); // i addead
+      foreach($_POST as $key => $value) // rollnumber.exam and marks
       {
-	  //echo "<br />".$key;
-	  
-	  //echo "  ".$value;
 	  if($key!="submit")
 	  {
 	  $rollno=substr($key, 0, 9);
 	  $field=substr($key, 9,2);
-	  //echo $field;
 	  $sql="select * from cutoff where course_id='$course_id'";
 	  $result = mysqli_query($con,$sql);
 	  $row = mysqli_fetch_array($result);
 	  $c="c";
 	  $temp=$field.$c;
-	  //echo $temp;
-	  //echo $row[$temp];
-	  if($value>$row[$temp]||$value<0)
+	  if($value>$row[$temp]||$value<0) // if entered marks is greater than the cutoff
 	   {
 	    $x=0;
 		echo "<b><font color='blue'>$key is invalid.<br></font></b>";
-		//$error_css='background-color:red';
 	   }
 	  else
 	   {
-	    mysqli_query($con,"update course_student set $field='$value' where rollno='$rollno'  ");
+	   	$student_marks[$key] = $value;  //i added
 	   }
 	  }
 	  }
 	  
   if($x==1)
   {
+  		foreach ($student_marks as $key => $value){ // i added the foreach loop
+  			$rollno=substr($key, 0, 9);
+  			$field=substr($key, 9,2);
+  			mysqli_query($con,"update course_student set $field='$value' where rollno='$rollno'  ");
+  		}
 	  $sql2 ="select * from course_student where course_id='$course_id'";
 	  $result2 = mysqli_query($con,$sql2);
       while($row2 = mysqli_fetch_array($result2))
@@ -58,7 +57,7 @@ if(isset($_POST['submit']))
   }
   else
   {    
-   echo"<b><font color='red'>Error:The values entered exceeding cutoff values were changed to previous value.</font></b>";
+   echo"<b><font color='red'>Error:The values were not stored in the db.</font></b>";
    }
    
   } 
@@ -84,7 +83,6 @@ echo "<br><br><br><br><br><br><br><br><b><center><font color='red'>NOTE : Please
 exit;
  }
  
- 
 
 echo "<br><br><b><center>COURSE ID  = $course_id </center></b><br><br> ";
 $sql="select * from course_student where course_id='$course_id' order by rollno";
@@ -93,7 +91,7 @@ echo "<form action='course_marks.php' method='post' ><table align='center'>
 <tr>
 <th>ROLL NO</th>
 <th>NAME</th>";
-if($row1['q1c']>0)
+// only display exams which have weightage
 echo '<th>QUIZ 1</th>';
 if($row1['q2c']>0)
 echo '<th>QUIZ 2</th>';
@@ -112,7 +110,7 @@ while($row = mysqli_fetch_array($result))
   echo "<td>" . $row['rollno'] . "</td>";
   $sql2="select * from students where rollnumber='$row[rollno]'";
   $result2 = mysqli_query($con,$sql2);
-  $row2 = mysqli_fetch_array($result2);
+  $row2 = mysqli_fetch_array($result2); // to find the name of the student
   echo "<td>" . $row2['name'] . "</td>";
   if($row1['q1c']>0)
   echo "<td><input type='number' name='".$row['rollno']."q1' value=".$row['q1']."></td>";
@@ -124,9 +122,7 @@ while($row = mysqli_fetch_array($result))
   echo "<td><input type='number' name='".$row['rollno']."ms'  value=".$row['ms']."></td>";
   if($row1['esc']>0)
   echo "<td><input type='number' name='".$row['rollno']."es'  value=".$row['es']."></td>";
- // ".$row['tt']."=$row['q1']+$row['q2']+$row['ss']+$row['ms']+$row['es']
- // echo "<td><input type='number' name='".$row['rollno']."tt'  value=".$row['tt']."></td>";
-  //echo "<td><input type='text' value=".$row['grade']."></td>";
+
   echo "</tr>";
   }
 echo "</table><br><br >";

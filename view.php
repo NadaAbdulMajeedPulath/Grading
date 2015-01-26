@@ -3,22 +3,22 @@
 
 <body>
 <?php
-//In this page the faculty can view complete details of a particular course.
+//In this page the faculty can view complete details of how students performed in a particular course.
 include 'mainmenu.php';
 session_start();
 $faculty_id=$_SESSION['faculty_id'];
 
-if(isset($_POST['submit']))
+if(isset($_POST['viewsubmit']))
 {
    $_SESSION['course_id']=$_POST['subnov'];
-$course_id=$_SESSION['course_id'];
+   $course_id=$_SESSION['course_id'];
    $sql="select * from course_student where course_id='$course_id' order by rollno";
 
    $result = mysqli_query($con,$sql);
    echo "<br><br><b><center>COURSE ID  = $course_id </center></b><br><br> ";
    
 
-   echo "<form action='view.php' method='post' ><table align='center'>
+   echo "<table align='center'>
    <tr>
    <th>ROLL NO</th>
    <th>NAME</th>
@@ -51,7 +51,7 @@ $course_id=$_SESSION['course_id'];
    echo "</table><br>";
 
 }
-
+ /////////////////////////////////////////////
 else
 {
 $sql="select * from jan_may_2014_slots where FACULTY='$faculty_id'";
@@ -66,7 +66,7 @@ while($row = mysqli_fetch_array($result))
    echo "<option value='$x'>".$x."</option>";
    }
 echo "</select>";
-echo "<input name='submit' type='submit' value='Enter'>";
+echo "<input name='viewsubmit' type='submit' value='Enter'>";
 echo "</form>";
 }
 
