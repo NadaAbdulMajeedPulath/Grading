@@ -30,7 +30,7 @@ echo "<form action='cutoff.php' method='post' >";
 echo "<table align='center'>
 <tr>
 
-<th SELECT></th>
+<th> SELECT</th>
 <th>NAME</th>
 <th>COURSE ID</th>
 

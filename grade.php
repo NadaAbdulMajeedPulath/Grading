@@ -26,18 +26,14 @@ include 'mainmenu.php';
 //ALong with the automatically generated grade  faculty also finds W,I grades where he has to choose a particular grade and submit.
 //after submit the values get stored in the database.
 
-
-
 $x=0; 
  
-if(isset($_POST['submit']))
+if(isset($_POST['submit_grade_allot']))
  {
   foreach($_POST as $key => $value)
     {
-	  //echo "<br />".$key;
-	  
-	  //echo "  ".$value;
-	  if($key!="submit")
+
+	  if($key!="submit_grade_allot")
 	  {
 	  $rollno=substr($key, 0, 9);
 	  //echo "<br />".$rollno;
@@ -57,7 +53,7 @@ $result = mysqli_query($con,$sql);
  }
  
  
-elseif(isset($_POST['rollno']))
+elseif(isset($_POST['rollno_select']))
 {
 session_start();
 $course_id=$_SESSION['course_id']; 
@@ -67,7 +63,7 @@ $sql="select * from course_student where course_id='$course_id' order by rollno"
 $result = mysqli_query($con,$sql);
 }
 
-elseif(isset($_POST['total']))
+elseif(isset($_POST['total_select']))
 {
  session_start();
 $course_id=$_SESSION['course_id']; 
@@ -77,15 +73,16 @@ $sql="select * from course_student where course_id='$course_id' order by tt desc
 $result = mysqli_query($con,$sql);
 }
 
-elseif(isset($_POST['grade_cutoff']))
+elseif(isset($_POST['grade_cutoff_submit']))
  {
    $temp=0;
    $i=0;
   session_start();
 $course_id=$_SESSION['course_id']; 
+
   foreach($_POST as $key => $value)
     {
-	  if($key!="submit")
+	  if($key!="grade_cutoff_submit")
 	  {
 	  $array[$i]=$value;
 	  $i++;
@@ -107,7 +104,7 @@ $course_id=$_SESSION['course_id'];
   {
    foreach($_POST as $key => $value)
     {
-	  if($key!="submit")
+	  if($key!="grade_cutoff_submit")
 	  {
 	  $field=$key;
 	  mysqli_query($con,"update cutoff set $field='$value' where course_id='$course_id'  ");
@@ -149,6 +146,7 @@ $sql="select * from course_student where course_id='$course_id' order by tt desc
 $result = mysqli_query($con,$sql);
  }
  
+ // start of the page
 else
 { 
 session_start();
@@ -167,11 +165,10 @@ $result = mysqli_query($con,$sql);
 <div class="left_side">
 
 <form action='grade.php' method='post' ><table align='center'>
-<center><input name ='submit' type="submit" value="Submit"></center>
 <?php echo"<br>" ?>
 <center>
-                <input name='rollno' type="submit" value="Sort by ROLLNO">
-                <input name='total' type="submit" value="Sort by TOTAL">
+                <input name='rollno_select' type="submit" value="Sort by ROLLNO">
+                <input name='total_select' type="submit" value="Sort by TOTAL">
 </center>
 <?php
 
@@ -184,79 +181,41 @@ echo "<br>
 <th>GRADE</th>
 </tr>";
 
-
 while($row = mysqli_fetch_array($result))
   {
   echo "<tr>";
   echo "<td>" . $row['rollno'] . "</td>";
-  $sql2="select * from students where rollnumber='$row[rollno]'";
-  $result2 = mysqli_query($con,$sql2);
-  $row2 = mysqli_fetch_array($result2);
-  echo "<td>" . $row2['name'] . "</td>";
-  //echo "<td><input type='number' name='".$row['rollno']."q1' value=".$row['q1']."></td>";
-  //echo "<td><input type='number' name='".$row['rollno']."q2'  value=".$row['q2']."></td>";
-  //echo "<td><input type='number' name='".$row['rollno']."ss'  value=".$row['ss']."></td>";
-  //echo "<td><input type='number' name='".$row['rollno']."ms'  value=".$row['ms']."></td>";
-  //echo "<td><input type='number' name='".$row['rollno']."es'  value=".$row['es']."></td>";
+  $sql_name="select * from students where rollnumber='$row[rollno]'";
+  $result_name = mysqli_query($con,$sql_name);
+  $row_name = mysqli_fetch_array($result_name);
+  echo "<td>" . $row_name['name'] . "</td>";
   $row['tt']=$row['q1']+$row['q2']+$row['ss']+$row['ms']+$row['es'];
   mysqli_query($con,"update course_student set tt=".$row['tt']." where rollno=".$row['rollno']."  ");
   echo "<td>".$row['tt']."</td>";
     echo '<td><select name="'.$row["rollno"].'gr">
             <option ';
 			if($row["gr"]=="S"||$row["gr"]=="A"||$row["gr"]=="B"||$row["gr"]=="C"||$row["gr"]=="D"||$row["gr"]=="E"||$row["gr"]=="U")
-			echo 'selected';
-			echo '>'.$row["gr"].'</option>';
-			
-			/*echo '<option ';
-			if($row["gr"]=="A")
-			echo 'selected';
-			echo '>A</option>';
-			
-			echo '<option ';
-			if($row["gr"]=="B")
-			echo 'selected';
-			echo '>B</option>';
-			
-			echo '<option ';
-			if($row["gr"]=="C")
-			echo 'selected';
-			echo '>C</option>';
-			
-			echo '<option ';
-			if($row["gr"]=="D")
-			echo 'selected';
-			echo '>D</option>';
-			
-			echo '<option ';
-			if($row["gr"]=='E')
-			echo 'selected';
-			echo '>E</option>';
-			
-			echo '<option ';
-			if($row["gr"]=='U')
-			echo 'selected';
-			echo '>U</option>';*/
-			
+			 echo 'selected';
+			echo '>'.$row["gr"].'</option>';			
 			echo '<option ';
 			if($row["gr"]=='W')
-			echo 'selected';
+			 echo 'selected';
 			echo '>W</option>';
 			
 			echo '<option ';
 			if($row["gr"]=='I')
-			echo 'selected';
+			 echo 'selected';
 			echo '>I</option>';
 			
 			echo '</select>
 			</td>'; 
-  //echo "<td><input type='text'     name='".$row['rollno']."gr' value=".$row['gr']."></td>";
   echo "</tr>";
   }
 echo "</table><br>";
 
 echo "<br>";
 ?>
-<center><input name ='submit' type="submit" value="Submit"></center>
+<center><input name ='submit_grade_allot' type="submit" value="Submit"></center>
 </form>
 
 </div>
@@ -311,7 +270,7 @@ echo "
 ?>
 
 <center>
-                <input name='grade_cutoff' type="submit" value="Submit">
+                <input name='grade_cutoff_submit' type="submit" value="Submit">
 </center>
 
 <?php  

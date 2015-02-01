@@ -87,7 +87,7 @@ exit;
 echo "<br><br><b><center>COURSE ID  = $course_id </center></b><br><br> ";
 $sql="select * from course_student where course_id='$course_id' order by rollno";
 $result = mysqli_query($con,$sql);
-echo "<form action='course_marks.php' method='post' ><table align='center'>
+echo "<form action='course_marks.php' method='post' ><table align='center'>;
 <tr>
 <th>ROLL NO</th>
 <th>NAME</th>";

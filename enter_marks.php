@@ -19,7 +19,7 @@ while($row = mysqli_fetch_array($result))
    echo "<option value='$x'>".$x."</option>";
    }
 echo "</select>";
-echo "<input type='submit' value='Enter'>";
+echo "<input type='submit' name = 'course_submit' value='Enter'>";
 echo "</form>";
 ?>
 </body>
