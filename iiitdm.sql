@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 01, 2015 at 10:07 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Feb 01, 2015 at 05:49 PM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,7 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `courses` (
   `course_id` varchar(9) NOT NULL,
-  `faculty_id` varchar(9) NOT NULL
+  `faculty_id` varchar(9) NOT NULL,
+  PRIMARY KEY (`course_id`),
+  KEY `faculty_id` (`faculty_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -79,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `course_student` (
 
 INSERT INTO `course_student` (`course_id`, `rollno`, `q1`, `q2`, `ss`, `ms`, `es`, `tt`, `gr`) VALUES
 ('COM 305', 'COE10B002', 20, 19, 0, 0, 40, 79, 'C'),
-('COM 305', 'COE10B001', 10, 20, 7, 0, 0, 37, 'U'),
+('COM 305', 'COE10B001', 10, 3, 4, 0, 37, 37, 'U'),
 ('COM 305', 'COE10B003', 20, 20, 10, 0, 49, 99, 'S'),
-('COM 305P', 'COE10B001', 10, 20, 7, 0, 0, 37, 'D'),
+('COM 305P', 'COE10B001', 10, 3, 4, 0, 37, 37, 'D'),
 ('COM 305P', 'COE10B002', 20, 19, 0, 0, 40, 79, 'A');
 
 -- --------------------------------------------------------
@@ -110,36 +112,46 @@ CREATE TABLE IF NOT EXISTS `cutoff` (
 --
 
 INSERT INTO `cutoff` (`course_id`, `q1c`, `q2c`, `ssc`, `msc`, `esc`, `s`, `a`, `b`, `c`, `d`, `e`) VALUES
-('COM 305', 20, 20, 10, 0, 50, 90, 80, 70, 60, 50, 40),
 ('COM 305P', 0, 0, 20, 30, 50, 87, 67, 57, 49, 37, 27),
-('ELE 517', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('PHY 106', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 211', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 311', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 518', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 209', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 210', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 212', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 213', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 312', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 513', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 510', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 215', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 102', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 214', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 507', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('PHY 106P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 210P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 214P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 102P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 209P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 311P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 212P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 102P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 215P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 213P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 211P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-('ELE 312P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+('MEC 109', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MAT 203', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 305', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 315', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 507', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('DES 509', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 204', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 306', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MAT 103', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MAN 302', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 509', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 104', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('INT 503', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 202', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 501', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 212', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 314', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 503', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MAT 501', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('DES 508', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('INT 105', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 209', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('DES 504', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 402', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MAT 502', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('INT 504', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 304', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('INT 106', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 304P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('DES 506', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 402P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 506', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('MEC 315P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 104P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('INT 102', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('COM 204P', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('DES 505', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+('INT 303', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -149,7 +161,8 @@ INSERT INTO `cutoff` (`course_id`, `q1c`, `q2c`, `ssc`, `msc`, `esc`, `s`, `a`, 
 
 CREATE TABLE IF NOT EXISTS `enrolled` (
   `rollno` varchar(9) NOT NULL,
-  `cnos` varchar(100) NOT NULL
+  `cnos` varchar(100) NOT NULL,
+  PRIMARY KEY (`rollno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -171,7 +184,8 @@ CREATE TABLE IF NOT EXISTS `faculty` (
   `faculty_id` varchar(9) NOT NULL,
   `name` varchar(100) NOT NULL,
   `password` varchar(15) NOT NULL DEFAULT '12',
-  `activate` int(1) NOT NULL DEFAULT '1'
+  `activate` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`faculty_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -343,7 +357,9 @@ CREATE TABLE IF NOT EXISTS `students` (
   `parent_contact` varchar(30) DEFAULT NULL,
   `password` varchar(15) NOT NULL,
   `gender` varchar(1) NOT NULL,
-  `activate` int(11) NOT NULL DEFAULT '1'
+  `activate` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`rollnumber`),
+  UNIQUE KEY `rollnumber` (`rollnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -779,34 +795,6 @@ INSERT INTO `students` (`rollnumber`, `name`, `hostel`, `room`, `st_contact`, `a
 ('MDS13M017', 'SIVACHITHAMBARAM. V', 'Lotus', '25', '9677096323, 9940293131', '', '', '12', '', 1),
 ('PHY10D001', 'K. RAMACHANDRAN', 'Jasmine', '207', '9840305849', '', '', '12', '', 1),
 ('PHY13D001', 'ASHISH KUMAR', 'Jasmine', '202', '9536630860', '', '', '12', '', 1);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `courses`
---
-ALTER TABLE `courses`
- ADD PRIMARY KEY (`course_id`), ADD KEY `faculty_id` (`faculty_id`);
-
---
--- Indexes for table `enrolled`
---
-ALTER TABLE `enrolled`
- ADD PRIMARY KEY (`rollno`);
-
---
--- Indexes for table `faculty`
---
-ALTER TABLE `faculty`
- ADD PRIMARY KEY (`faculty_id`);
-
---
--- Indexes for table `students`
---
-ALTER TABLE `students`
- ADD PRIMARY KEY (`rollnumber`), ADD UNIQUE KEY `rollnumber` (`rollnumber`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
