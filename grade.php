@@ -89,7 +89,7 @@ $course_id=$_SESSION['course_id'];
 	  }
 	}
 	
-	for($i=0;$i<5;$i++)
+	for($i=0;$i<=5;$i++)
 	{
 	 if($array[$i]<=0||$array[$i]<$array[$i+1])
 	  $temp=1;
@@ -157,6 +157,7 @@ $course_id=$_SESSION['course_id'];
 echo "<br><br><b><center>COURSE ID  = $course_id </center></b><br> ";
 $sql="select * from course_student where course_id='$course_id' order by rollno";
 $result = mysqli_query($con,$sql);
+$count=mysqli_num_rows($result);
 }
  
 ?>
@@ -171,7 +172,10 @@ $result = mysqli_query($con,$sql);
                 <input name='total_select' type="submit" value="Sort by TOTAL">
 </center>
 <?php
-
+/*if ($count != 1){
+  echo "<br><br><br><br><br><br><br><br><b><center><font color='red'>NOTE : SQL table not present.</font></center></b>";  
+}
+*/
 
 echo "<br>
 <tr>
@@ -214,6 +218,7 @@ while($row = mysqli_fetch_array($result))
 echo "</table><br>";
 
 echo "<br>";
+
 ?>
 <center><input name ='submit_grade_allot' type="submit" value="Submit"></center>
 </form>
@@ -277,8 +282,9 @@ echo "
 echo "</form>";
 
 ?>
-
 </div>
+
+
 
 
 </body>

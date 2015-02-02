@@ -74,16 +74,20 @@ $course_id=$_SESSION['course_id'];
 
 $sql1="select * from cutoff where course_id='$course_id'";
 $result1 = mysqli_query($con,$sql1);
+$count=mysqli_num_rows($result1);
 $row1 = mysqli_fetch_array($result1);
 
+if($count != 1){
+echo "<br><br><br><br><br><br><br><br><b><center><font color='red'>NOTE : SQL table not present.</font></center></b>";
+}
 
-if($row1['q1c']==0&&$row1['q2c']==0&&$row1['ssc']==0&&$row1['msc']==0&&$row1['esc']==0)
+elseif($row1['q1c']==0&&$row1['q2c']==0&&$row1['ssc']==0&&$row1['msc']==0&&$row1['esc']==0)
  {
 echo "<br><br><br><br><br><br><br><br><b><center><font color='red'>NOTE : Please Enter Marks Distribution for this course in HOME page before entering marks.</font></center></b>";
 exit;
  }
  
-
+else{ 
 echo "<br><br><b><center>COURSE ID  = $course_id </center></b><br><br> ";
 $sql="select * from course_student where course_id='$course_id' order by rollno";
 $result = mysqli_query($con,$sql);
@@ -127,10 +131,11 @@ while($row = mysqli_fetch_array($result))
   }
 echo "</table><br><br >";
 
+
+
+
+echo "<center><input name ='submit' type=\"submit\" value=\"Submit\"></form></center>";
+}
 ?>
-
-
-<center><input name ='submit' type="submit" value="Submit"></form></center>
-
 </body>
 </html>
