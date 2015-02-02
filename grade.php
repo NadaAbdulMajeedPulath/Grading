@@ -89,11 +89,15 @@ $course_id=$_SESSION['course_id'];
 	  }
 	}
 	
-	for($i=0;$i<=5;$i++)
+	for($i=0;$i<5;$i++)
 	{
 	 if($array[$i]<=0||$array[$i]<$array[$i+1])
 	  $temp=1;
 	}
+  if($array[5]<=0)
+  {
+    $temp=1;
+  }
 	
   if($temp==1)
   {
